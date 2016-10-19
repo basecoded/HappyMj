@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ID_GEN">
+	<resultMap id="idGen" type="com.s4game.server.bus.id.entity.IdGen" >
+		<result property="id" column="id"/>
+		<result property="moduleName" column="module_name"/>
+		<result property="value" column="value"/>
+		<result property="prefix" column="prefix"/>
+		<result property="version" column="version"/>
+	</resultMap>
+	
+	<sql id="queryConditionIdGen">
+		<where>
+			<if test="id != null">AND id = #{id}</if>
+			<if test="moduleName != null">AND module_name = #{moduleName}</if>
+			<if test="value != null">AND value = #{value}</if>
+			<if test="prefix != prefix">AND prefix = #{prefix}</if>
+			<if test="version != version">AND version = #{version}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyIdGen">
+		where id = #{id}
+	</sql>
+	
+	<insert id="insertIdGen" parameterType="com.s4game.server.bus.id.entity.IdGen">
+		insert into id_gen(id, module_name, value, prefix, version)
+		
+		values( #{id}, #{moduleName}, #{value}, #{prefix}, #{version} )
+	</insert>
+	
+	<delete id="deleteIdGen">
+		delete from id_gen
+		<include refid="queryByKeyIdGen"/>
+	</delete>	
+	
+	<update id="updateIdGen" parameterType="com.s4game.server.bus.id.entity.IdGen">
+		update id_gen set
+		id = #{id}
+		,module_name = #{moduleName}
+		,value = #{value} 
+		,prefix = #{prefix}
+		, version = #{version} 
+		<include refid="queryByKeyIdGen"/>
+	</update>
+	
+	<select id="selectOneIdGen" resultMap="idGen">
+		select 
+		id
+		,module_name
+		,value
+		,prefix
+		,version
+		from id_gen 
+		<include refid="queryByKeyIdGen"/>
+	</select>
+	
+	<select id="selectListIdGen" parameterType="java.util.Map" resultMap="idGen">
+		select 
+		id
+		,module_name
+		,value
+		,prefix
+		,version
+		from id_gen
+		<include refid="queryConditionIdGen"/>
+	</select>
+	
+	<update id="updateIncValue" parameterType="java.util.Map">
+		update id_gen set value = value + 1
+		
+		<include refid="queryByKeyIdGen"/>
+	</update>	
+	
+</mapper>
+	

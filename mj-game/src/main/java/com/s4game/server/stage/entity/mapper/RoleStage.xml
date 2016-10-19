@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ROLE_STAGE">
+	<resultMap id="roleStage" type="com.s4game.server.stage.entity.RoleStage" >
+		<result property="userRoleId" column="user_role_id"/>
+		<result property="mapId" column="map_id"/>
+		<result property="mapX" column="map_x"/>
+		<result property="mapY" column="map_y"/>
+		<result property="hp" column="hp"/>
+		<result property="mp" column="mp"/>
+		<result property="maxHp" column="max_hp"/>
+		<result property="maxMp" column="max_mp"/>
+		<result property="buff" column="buff"/>
+		<result property="props" column="props"/>
+		<result property="state" column="state"/>
+		<result property="mapNode" column="map_node"/>
+		<result property="tiLi" column="ti_li"/>
+		<result property="lineNo" column="line_no"/>
+		<result property="pkInfo" column="pk_info"/>
+		<result property="shanbiVal" column="shanbi_val"/>
+		<result property="meirenInfo" column="meiren_info"/>
+		<result property="zuoqiInfo" column="zuoqi_info"/>
+		<result property="freeFlyCount" column="free_fly_count"/>
+		<result property="flyCountRefreshTime" column="fly_count_refresh_time"/>
+		<result property="copyInfo" column="copy_info"/>
+		<result property="logUpdateTime" column="log_update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionRoleStage">
+		<where>
+			<if test="userRoleId != null"> user_role_id = #{userRoleId} </if>
+			<if test="mapId != null "> map_id = #{mapId} </if>
+			<if test="mapX != null "> map_x = #{mapX} </if>
+			<if test="mapY != null "> map_y = #{mapY} </if>
+			<if test="hp != null "> hp = #{hp} </if>
+			<if test="mp != null "> mp = #{mp} </if>
+			<if test="maxHp != null "> max_hp = #{maxHp} </if>
+			<if test="maxMp != null "> max_mp = #{maxMp} </if>
+			<if test="buff != null "> buff = #{buff} </if>
+			<if test="props != null "> props = #{props} </if>
+			<if test="state != null "> state = #{state} </if>
+			<if test="mapNode != null "> map_node = #{mapNode} </if>
+			<if test="tiLi != null "> ti_li = #{tiLi} </if>
+			<if test="lineNo != null "> line_no = #{lineNo} </if>
+			<if test="pkInfo != null "> pk_info = #{pkInfo} </if>
+			<if test="shanbiVal != null "> shanbi_val = #{shanbiVal} </if>
+			<if test="meirenInfo != null "> meiren_info = #{meirenInfo} </if>
+			<if test="zuoqiInfo != null "> zuoqi_info = #{zuoqiInfo} </if>
+			<if test="freeFlyCount != null "> free_fly_count = #{freeFlyCount} </if>
+			<if test="flyCountRefreshTime != null "> fly_count_refresh_time = #{flyCountRefreshTime} </if>
+			<if test="copyInfo != null "> copy_info = #{copyInfo} </if>
+			<if test="logUpdateTime != null "> log_update_time = #{logUpdateTime} </if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyRoleStage">
+		where user_role_id = #{userRoleId}
+	</sql>
+	
+	<insert id="insertRoleStage" parameterType="com.s4game.server.stage.entity.RoleStage">
+		insert into role_stage(
+			user_role_id 
+			,map_id 
+			,map_x 
+			,map_y 
+			,hp 
+			,mp 
+			,max_hp 
+			,max_mp 
+			,buff 
+			,props 
+			,state 
+			,map_node 
+			,ti_li 
+			,line_no 
+			,pk_info 
+			,shanbi_val 
+			,meiren_info 
+			,zuoqi_info 
+			,free_fly_count 
+			,fly_count_refresh_time 
+			,copy_info 
+			,log_update_time 
+		)
+		values(
+			#{userRoleId}
+			,#{mapId}
+			,#{mapX}
+			,#{mapY}
+			,#{hp}
+			,#{mp}
+			,#{maxHp}
+			,#{maxMp}
+			,#{buff}
+			,#{props}
+			,#{state}
+			,#{mapNode}
+			,#{tiLi}
+			,#{lineNo}
+			,#{pkInfo}
+			,#{shanbiVal} 
+			,#{meirenInfo} 
+			,#{zuoqiInfo} 
+			,#{freeFlyCount}
+			,#{flyCountRefreshTime}
+			,#{copyInfo}
+			,#{logUpdateTime}
+		)
+	</insert>
+	
+	<delete id="deleteRoleStage">
+		delete from role_stage
+		<include refid="queryByKeyRoleStage"/>
+	</delete>
+	
+	<update id="updateRoleStage" parameterType="com.s4game.server.stage.entity.RoleStage">
+		update role_stage set
+			user_role_id = #{userRoleId}
+			,map_id = #{mapId}
+			,map_x = #{mapX}
+			,map_y = #{mapY}
+			,hp = #{hp}
+			,mp = #{mp}
+			,max_hp = #{maxHp}
+			,max_mp = #{maxMp}
+			,buff = #{buff}
+			,props = #{props}
+			,state = #{state}
+			,map_node = #{mapNode}
+			,ti_li = #{tiLi}
+			,line_no = #{lineNo}
+			,pk_info = #{pkInfo}
+			,shanbi_val = #{shanbiVal} 
+			,meiren_info = #{meirenInfo} 
+			,zuoqi_info = #{zuoqiInfo} 
+			,free_fly_count = #{freeFlyCount}
+			,fly_count_refresh_time = #{flyCountRefreshTime}
+			,copy_info = #{copyInfo}
+			,log_update_time = #{logUpdateTime}
+		<include refid="queryByKeyRoleStage"/>
+	</update>
+	
+	<select id="selectOneRoleStage" resultMap="roleStage">
+		select 
+		user_role_id
+		,map_id
+		,map_x
+		,map_y
+		,hp
+		,mp
+		,max_hp
+		,max_mp
+		,buff
+		,props
+		,state
+		,map_node
+		,ti_li
+		,line_no
+		,pk_info
+		,shanbi_val
+		,meiren_info
+		,zuoqi_info
+		,free_fly_count
+		,fly_count_refresh_time
+		,copy_info
+		,log_update_time
+		from role_stage 
+		<include refid="queryByKeyRoleStage"/>
+	</select>
+	
+	<select id="selectRecordsCountRoleStage" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from role_stage
+		<include refid="queryConditionRoleStage"/>
+	</select>
+	
+	<select id="selectMultiPagingRoleStage" parameterType="java.util.Map" resultMap="roleStage">
+		select 
+		user_role_id
+		,map_id
+		,map_x
+		,map_y
+		,hp
+		,mp
+		,max_hp
+		,max_mp
+		,buff
+		,props
+		,state
+		,map_node
+		,ti_li
+		,line_no
+		,pk_info
+		,shanbi_val
+		,meiren_info
+		,zuoqi_info
+		,free_fly_count
+		,fly_count_refresh_time
+		,copy_info
+		,log_update_time
+		from role_stage
+		<include refid="queryConditionRoleStage"/>
+		limit #start#,#pagesize#
+	</select>
+
+	<select id="selectListRoleStage" parameterType="java.util.Map" resultMap="roleStage">
+		select 
+		user_role_id
+		,map_id
+		,map_x
+		,map_y
+		,hp
+		,mp
+		,max_hp
+		,max_mp
+		,buff
+		,props
+		,state
+		,map_node
+		,ti_li
+		,line_no
+		,pk_info
+		,shanbi_val
+		,meiren_info
+		,zuoqi_info
+		,free_fly_count
+		,fly_count_refresh_time
+		,copy_info
+		,log_update_time
+		from role_stage
+		<include refid="queryConditionRoleStage"/>
+	</select>
+	
+	<select id="selectAllRoleStage" resultMap="roleStage">
+		select 
+		user_role_id
+		,map_id
+		,map_x
+		,map_y
+		,hp
+		,mp
+		,max_hp
+		,max_mp
+		,buff
+		,props
+		,state
+		,map_node
+		,ti_li
+		,line_no
+		,pk_info
+		,shanbi_val
+		,meiren_info
+		,zuoqi_info
+		,free_fly_count
+		,fly_count_refresh_time
+		,copy_info
+		,log_update_time
+		from role_stage
+	</select>
+	
+	<select id="selectSingleByParamsRoleStage" resultMap="roleStage">
+		select 
+		user_role_id
+		,map_id
+		,map_x
+		,map_y
+		,hp
+		,mp
+		,max_hp
+		,max_mp
+		,buff
+		,props
+		,state
+		,map_node
+		,ti_li
+		,line_no
+		,pk_info
+		,shanbi_val
+		,meiren_info
+		,zuoqi_info
+		,free_fly_count
+		,fly_count_refresh_time
+		,copy_info
+		,log_update_time
+		from role_stage 
+		<include refid="queryConditionRoleStage"/>
+	</select>	
+	
+	
+</mapper>
+	

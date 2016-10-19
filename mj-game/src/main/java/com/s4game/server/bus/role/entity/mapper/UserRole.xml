@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="USER_ROLE">
+	<resultMap id="userRole" type="com.s4game.server.bus.role.entity.UserRole" >
+		<result property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="name" column="name"/>
+		<result property="job" column="job"/>
+		<result property="sex" column="sex"/>
+		<result property="card" column="card"/>
+		<result property="face" column="face"/>
+		<result property="createTime" column="create_time"/>
+		<result property="onlineTime" column="online_time"/>
+		<result property="offlineTime" column="offline_time"/>
+		<result property="serverId" column="server_id"/>
+		<result property="platform" column="platform"/>
+		<result property="loginCount" column="login_count"/>
+		<result property="logUpdateTime" column="log_update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionUserRole">
+		<where>
+			<if test="id != null "> AND id = #{id} </if>
+			<if test="userId != null "> AND user_id = #{userId} </if>
+			<if test="name != null "> AND name = #{name} </if>
+			<if test="job != null "> AND job = #{job} </if>
+			<if test="sex != null "> AND sex = #{sex} </if>
+			<if test="card != null "> AND card = #{card} </if>
+			<if test="level != null "> AND level = #{level} </if>
+			<if test="face != null "> AND face = #{face} </if>
+			<if test="createTime != null "> AND create_time = #{createTime} </if>
+			<if test="onlineTime != null "> AND online_time = #{onlineTime} </if>
+			<if test="offlineTime != null "> AND offline_time = #offlineTime# </if>
+			<if test="serverId != null "> AND server_id = #{serverId} </if>
+			<if test="platform != null "> AND platform = #{platform} </if>
+			<if test="loginCount != null "> AND login_count = #{loginCount} </if>
+			<if test="logUpdateTime != null "> AND log_update_time = #{logUpdateTime} </if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyUserRole">
+		where id = #{id}
+	</sql>
+	
+	<insert id="insertUserRole" parameterType="com.s4game.server.bus.role.entity.UserRole">
+		insert into user_role(
+			id   
+			, user_id   
+			, name   
+			, job   
+			, sex   
+			, card   
+			, face   
+			, create_time   
+			, online_time   
+			, offline_time   
+			, server_id   
+			, platform   
+			, login_count   
+			, log_update_time   
+		)
+		values(
+			#{id}
+			, #{userId}  
+			, #{name}
+			, #{job} 
+			, #{sex}  
+			, #{card}  
+			, #{face} 
+			, #{createTime}  
+			, #{onlineTime}  
+			, #{offlineTime}  
+			, #{serverId}
+			, #{platform}  
+			, #{loginCount}  
+			, #{logUpdateTime}  
+		)
+	</insert>
+	
+	<delete id="deleteUserRole">
+		delete from user_role
+		<include refid="queryByKeyUserRole"/>
+	</delete>
+	
+	<update id="updateUserRole" parameterType="com.s4game.server.bus.role.entity.UserRole">
+		update user_role set
+			id = #{id}
+			, user_id = #{userId}  
+			, name = #{name}
+			, job = #{job}
+			, sex = #{sex}  
+			, card = #{card}  
+			, face = #{face}
+			, create_time = #{createTime}  
+			, online_time = #{onlineTime}  
+			, offline_time = #{offlineTime}  
+			, server_id = #{serverId}
+			, platform = #{platform} 
+			, login_count = #{loginCount}
+			, log_update_time = #{logUpdateTime}  
+		<include refid="queryByKeyUserRole"/>
+	</update>
+	
+	<select id="selectOneUserRole" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time
+		from user_role 
+		<include refid="queryByKeyUserRole"/>
+	</select>
+	
+	<select id="selectRecordsCountUserRole" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from user_role
+		<include refid="queryConditionUserRole"/>
+	</select>
+	
+	<select id="selectMultiPagingUserRole" parameterType="java.util.Map" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time
+		from user_role 
+		<include refid="queryConditionUserRole"/>
+		limit #start#,#pagesize#
+	</select>
+
+	<select id="selectListUserRole" parameterType="java.util.Map" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time
+		from user_role 
+		<include refid="queryConditionUserRole"/>
+	</select>
+	
+	<select id="selectAllUserRole" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time
+		from user_role 
+	</select>
+	
+	<select id="selectOneByParamsUserRole" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time
+		from user_role 
+		<include refid="queryConditionUserRole"/>
+	</select>	
+	
+	<select id="selectUserRoleLikeName" parameterType="java.util.Map" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time 
+		from user_role where name like #name# order by name asc limit 0,50
+	</select>
+	
+	<select id="selectUserRoleOrderByLevel" resultType="java.lang.String">
+		SELECT id FROM user_role ORDER BY level desc, exp desc, upgrade_time asc
+	</select>
+	
+	<!-- 查询userId下所有的roleId -->
+	<select id="selectRoleIdsByUserId" parameterType="java.util.Map" resultType="java.lang.String">
+		select id from user_role where user_id = #{userId} and server_id = #{serverId}
+	</select>
+	
+	<!-- 根据roleNames查询记录 -->
+	<select id="selectUserRolesByRoleNames" parameterType="java.util.Map" resultType="java.lang.String">
+		select id from user_role where name in ($roleNames$) and server_id = #{serverId}
+	</select>
+	
+	<select id="selectUserRoleLikeNameOrJob" parameterType="java.util.Map" resultMap="userRole">
+		select 
+		id
+		,user_id
+		,name
+		,job
+		,sex
+		,card
+		,face
+		,create_time
+		,online_time
+		,offline_time
+		,server_id
+		,platform
+		,login_count
+		,log_update_time 
+		from user_role 
+		
+		<where>
+			<if test="">level > 39</if>
+			<if test="job != null"> job = #{job} </if>
+			<if test="name != null"> name like #{name} </if>
+		</where>
+		
+		order by name asc limit 0,50
+	</select>
+	
+    <!-- 查询指定日期创建角色数量 -->
+	<select id="selectRoleCreateCountByDays" parameterType="java.util.Map" resultType="int">
+		SELECT count(id) FROM user_role WHERE create_time >= #{startTime} AND create_time <![CDATA[<]]> #{endTime}
+	</select>
+	
+	    <!-- 获取此时间段内的登录人数 -->
+	<select id="selectRoleLoginCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(id) FROM user_role WHERE online_time >= #{startTime} AND online_time <![CDATA[<]]> #{endTime}
+	</select>
+</mapper>
+	

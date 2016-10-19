@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ROOM">
+	<resultMap id="room" type="com.s4game.server.public_.room.entity.Room" >
+		<result property="id" column="id"/>
+		<result property="userRoleId" column="user_role_id"/>
+		<result property="status" column="status"/>
+		<result property="maxRound" column="max_round"/>
+		<result property="curRound" column="cur_round"/>
+		<result property="serial" column="serial"/>
+		<result property="win" column="win"/>
+		<result property="createTime" column="create_time"/>
+		<result property="logUpdateTime" column="log_update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionRoom">
+		<where>
+		    <if test="id != null "> AND id = #{id} </if>
+			<if test="userRoleId != null "> AND user_role_id = #{userRoleId} </if>
+			<if test="createTime != null "> AND create_time = #{createTime} </if>
+			<if test="logUpdateTime != null "> AND log_update_time = #{logUpdateTime} </if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyRoom">
+		where id = #{id}
+	</sql>
+	
+	<insert id="insertRoom" parameterType="com.s4game.server.public_.room.entity.Room">
+		insert into room(
+		    id
+			, user_role_id   
+			, status
+			, max_round
+			, cur_round   
+			, serial   
+			, win 
+			, create_time  
+			, log_update_time   
+		)
+		values(
+			#{id}
+			, #{userRoleId}  
+			, #{status}
+			, #{maxRound}
+			, #{curRound}
+			, #{serial} 
+			, #{win}  
+			, #{createTime}
+			, #{logUpdateTime}  
+		)
+	</insert>
+	
+	<delete id="deleteRoom">
+		delete from room
+		<include refid="queryByKeyRoom"/>
+	</delete>
+	
+	<update id="updateRoom" parameterType="com.s4game.server.public_.room.entity.Room">
+		update room set
+			user_role_id = #{userRoleId}  
+			, status = #{status}
+			, max_round = #{maxRound}
+			, cur_round = #{curRound}
+			, serial = #{serial}
+			, win = #{win}  
+			, create_time = #{createTime}
+			, log_update_time = #{logUpdateTime}  
+		<include refid="queryByKeyRoom"/>
+	</update>
+	
+	<select id="selectOneRoom" resultMap="room">
+		select 
+		    id
+            , user_role_id   
+            , status
+            , max_round
+            , cur_round   
+            , serial   
+            , win 
+            , create_time  
+            , log_update_time   
+		from room 
+		<include refid="queryByKeyRoom"/>
+	</select>
+	
+	<select id="selectRecordsCountRoom" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from room
+		<include refid="queryConditionRoom"/>
+	</select>
+	
+	<select id="selectMultiPagingRoom" parameterType="java.util.Map" resultMap="room">
+		select 
+            id
+            , user_role_id   
+            , status
+            , max_round
+            , cur_round   
+            , serial   
+            , win 
+            , create_time  
+            , log_update_time   
+        from room 
+		<include refid="queryConditionRoom"/>
+		limit #start#,#pagesize#
+	</select>
+
+	<select id="selectListRoom" parameterType="java.util.Map" resultMap="room">
+		select 
+            id
+            , user_role_id   
+            , status
+            , max_round
+            , cur_round   
+            , serial   
+            , win 
+            , create_time  
+            , log_update_time   
+        from room  
+		<include refid="queryConditionRoom"/>
+	</select>
+	
+	<select id="selectAllRoom" resultMap="room">
+		select 
+            id
+            , user_role_id   
+            , status
+            , max_round
+            , cur_round   
+            , serial   
+            , win 
+            , create_time  
+            , log_update_time   
+        from room 
+    </select>
+	
+	<select id="selectOneByParamsRoom" resultMap="room">
+	    select 
+            id
+            , user_role_id   
+            , status
+            , max_round
+            , cur_round   
+            , serial   
+            , win 
+            , create_time  
+            , log_update_time   
+        from room 
+		<include refid="queryConditionRoom"/>
+	</select>	
+	
+</mapper>
+	

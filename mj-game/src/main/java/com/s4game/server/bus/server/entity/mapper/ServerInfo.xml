@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SERVER_INFO">
+	<resultMap id="serverInfo" type="com.s4game.server.bus.server.entity.ServerInfo">
+		<result property="id" column="id"/>
+		<result property="startTime" column="start_time"/>
+		<result property="prefixId" column="prefix_id"/>
+		<result property="hefuTime" column="hefu_time"/>
+		<result property="logUpdateTime" column="log_update_time"/>		
+	</resultMap>
+
+	<select id="selectListServerInfo" resultMap="serverInfo">
+		select 
+		id
+		,start_time
+		,prefix_id
+		,hefu_time
+		,log_update_time
+		from server_info
+	</select>
+
+	<insert id="insertServerInfo" parameterType="com.s4game.server.bus.server.entity.ServerInfo">
+		insert into server_info(id, start_time, prefix_id, hefu_time, log_update_time)
+		values( 
+			#{id}
+			,#{startTime}
+			,#{prefixId}
+			,#{hefuTime}
+			,#{logUpdateTime}	
+		)
+	</insert>
+	
+	<update id="updateServerInfo" parameterType="com.s4game.server.bus.server.entity.ServerInfo">
+		update server_info set
+		id = #{id}
+		,start_time = #{startTime}
+		,prefix_id = #{prefixId}
+		,hefu_time = #{hefuTime}
+		,log_update_time = #{logUpdateTime}
+		
+		where id = #{id}
+	</update>
+	
+</mapper>
+	

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="lockManager" class="com.s4game.core.sync.LockManager"></bean>
+	
+	<bean id="syncAspect" class="com.s4game.core.sync.aop.SyncAspect">
+	   <property name="lockManager" ref="lockManager"/>
+	</bean>
+	
+	<aop:config>
+    
+        <aop:aspect ref="syncAspect">
+            <aop:pointcut id="sync"
+                expression="@annotation(com.s4game.core.sync.annotation.Sync) and @annotation(sync)"/>
+            <aop:around pointcut-ref="sync" method="sync" arg-names="sync"/>
+        </aop:aspect>
+        
+   </aop:config>
+	
+    <!-- 
+	<bean id="publicSync" class="com.s4game.server.public_.sync.PublicSyncInterceptor"></bean>
+	
+	<aop:config>
+        <aop:pointcut id="publicPoint"
+            expression="execution(* com.s4game.server.public_..*Service*.*(..)) and @annotation(com.s4game.core.sync.annotation.Sync)" />
+
+        <aop:advisor pointcut-ref="publicPoint" advice-ref="publicSync" />
+    </aop:config>
+     -->
+	
+</beans>

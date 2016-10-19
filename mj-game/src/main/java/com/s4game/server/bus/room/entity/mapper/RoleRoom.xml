@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ROLE_ROOM">
+	<resultMap id="roleRoom" type="com.s4game.server.bus.room.entity.RoleRoom" >
+		<result property="userRoleId" column="user_role_id"/>
+		<result property="number" column="number"/>
+		<result property="round" column="round"/>
+		<result property="serial" column="serial"/>
+		<result property="win" column="win"/>
+		
+		<result property="logUpdateTime" column="log_update_time"/>
+	</resultMap>
+	
+	<sql id="queryConditionRoleRoom">
+		<where>
+			<if test="userRoleId != null "> AND user_role_id = #{userRoleId} </if>
+			<if test="number != null "> AND number = #{number} </if>
+			<if test="logUpdateTime != null "> AND log_update_time = #{logUpdateTime} </if>
+		</where>
+	</sql>
+	
+	<sql id="queryByKeyRoleRoom">
+		where user_role_id = #{userRoleId}
+	</sql>
+	
+	<insert id="insertRoleRoom" parameterType="com.s4game.server.bus.room.entity.RoleRoom">
+		insert into role_room(
+			user_role_id   
+			, number
+			, round   
+			, serial   
+			, win   
+			, log_update_time   
+		)
+		values(
+			#{userRoleId}  
+			, #{number}
+			, #{round}
+			, #{serial} 
+			, #{win}  
+			, #{logUpdateTime}  
+		)
+	</insert>
+	
+	<delete id="deleteRoleRoom">
+		delete from role_room
+		<include refid="queryByKeyRoleRoom"/>
+	</delete>
+	
+	<update id="updateRoleRoom" parameterType="com.s4game.server.bus.room.entity.RoleRoom">
+		update role_room set
+			user_role_id = #{userRoleId}  
+			, number = #{number}
+			, round = #{round}
+			, serial = #{serial}
+			, win = #{win}  
+			, log_update_time = #{logUpdateTime}  
+		<include refid="queryByKeyRoleRoom"/>
+	</update>
+	
+	<select id="selectOneRoleRoom" resultMap="roleRoom">
+		select 
+		user_role_id
+		,number
+		,round
+		,serial
+		,win
+		,log_update_time
+		from role_room 
+		<include refid="queryByKeyRoleRoom"/>
+	</select>
+	
+	<select id="selectRecordsCountRoleRoom" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from role_room
+		<include refid="queryConditionRoleRoom"/>
+	</select>
+	
+	<select id="selectMultiPagingRoleRoom" parameterType="java.util.Map" resultMap="roleRoom">
+		select 
+        user_role_id
+        ,number
+        ,round
+        ,serial
+        ,win
+        ,log_update_time
+        from role_room 
+		<include refid="queryConditionRoleRoom"/>
+		limit #start#,#pagesize#
+	</select>
+
+	<select id="selectListRoleRoom" parameterType="java.util.Map" resultMap="roleRoom">
+		select 
+        user_role_id
+        ,number
+        ,round
+        ,serial
+        ,win
+        ,log_update_time
+        from role_room  
+		<include refid="queryConditionRoleRoom"/>
+	</select>
+	
+	<select id="selectAllRoleRoom" resultMap="roleRoom">
+		select 
+        user_role_id
+        ,number
+        ,round
+        ,serial
+        ,win
+        ,log_update_time
+        from role_room 
+    </select>
+	
+	<select id="selectOneByParamsRoleRoom" resultMap="roleRoom">
+	    select 
+        user_role_id
+        ,number
+        ,round
+        ,serial
+        ,win
+        ,log_update_time
+        from role_room 
+		<include refid="queryConditionRoleRoom"/>
+	</select>	
+	
+</mapper>
+	
