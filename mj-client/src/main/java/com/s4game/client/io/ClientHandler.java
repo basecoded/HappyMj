@@ -26,4 +26,9 @@ public class ClientHandler extends SimpleChannelInboundHandler<Response> {
 		LOG.info("client receive msg: {}", msg.toString());
 	}
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+            throws Exception {
+        cause.printStackTrace();
+    }
 }

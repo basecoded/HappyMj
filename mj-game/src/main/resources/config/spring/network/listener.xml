@@ -10,17 +10,20 @@
 
 	<bean id="topHandler" class="com.s4game.server.io.handler.TopHandler" />
 	<bean id="messageHandler" class="com.s4game.server.io.handler.MessageHandler" />
+	
+	<bean id="messageLite" class="com.s4game.protocol.Message.Request" factory-method="getDefaultInstance"/>
 
-	<bean id="serverInitializer" class="com.s4game.core.io.WebSocketInitializer">
+	<bean id="serverInitializer" class="com.s4game.core.io.NetInitializer">
 		<property name="handlers" >
 			<list>
 				<ref bean="topHandler"/>
 				<ref bean="messageHandler"/>
 			</list>
 		</property>
+		<property name="messageLite" ref="messageLite"/>
 	</bean>
 
-	<bean class="com.s4game.core.io.WebsocktListener" init-method="start">
+	<bean class="com.s4game.core.io.NetListener" init-method="start">
 		<property name="port" value="${serverPort}" />
 		<property name="bossThreadSize" value="1" />
 		<property name="workerThreadSize" value="4" />

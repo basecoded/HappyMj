@@ -6,15 +6,14 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSONObject;
 import com.s4game.core.action.annotation.ActionMapping;
 import com.s4game.core.action.annotation.ActionWorker;
+import com.s4game.protocol.Message.Response;
 import com.s4game.server.io.IoConstants;
 import com.s4game.server.io.global.ChannelManager;
 import com.s4game.server.io.message.IoMessage;
 
 import io.netty.channel.Channel;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
  * 
@@ -34,8 +33,8 @@ public class IoMsgOutAction {
     public void out(IoMessage message) {
         LOG.info("message out: {}", message.toString());
 
-        JSONObject data = (JSONObject) message.getData();
-        data.put("cmd", message.getRealCommand());
+        Response.Builder builder = Response.newBuilder();
+        builder.setCommand(message.getRealCommand()).setData(message.toData());
         
         int route = message.getRoute();
         switch (route) {
@@ -52,7 +51,7 @@ public class IoMsgOutAction {
             }
 
             if (null != channel) {
-                channel.writeAndFlush( new TextWebSocketFrame(data.toJSONString()));
+                channel.writeAndFlush(builder);
             }
 
             break;
@@ -60,7 +59,7 @@ public class IoMsgOutAction {
             for (String id : message.getRoleIds()) {
                 channel = channelManager.getChannel(id);
                 
-                channel.writeAndFlush( new TextWebSocketFrame(data.toJSONString()));
+                channel.writeAndFlush(builder);
             }
             
             break;
