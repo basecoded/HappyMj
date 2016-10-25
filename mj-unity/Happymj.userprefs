@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Assets\Scripts\Base System\Communication\CommunicationCenter.cs" Line="28" Column="30" />
+      <File FileName="Assets\Scripts\Base System\Communication\Channel\SoketClient.cs" Line="148" Column="53" />
+      <File FileName="Assets\Scripts\ProtobufTest.cs" Line="61" Column="18" />
+      <File FileName="Assets\Scripts\Base System\Communication\Codec\ProtobufDecoder.cs" Line="9" Column="15" />
+      <File FileName="Assets\Scripts\Base System\Communication\MessageConfig.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="E:\workspace-unity\Happymj\Assets\Scripts\Login.cs" line="166" column="1" />
+      <Breakpoint file="E:\workspace-unity\Happymj\Assets\Scripts\Login.cs" line="57" column="1" />
+      <Breakpoint file="E:\workspace-unity\Happymj\Assets\Scripts\Login.cs" line="50" column="1" />
+      <Breakpoint file="E:\workspace-unity\Happymj\Assets\Scripts\Base System\Communication\Channel\SoketClient.cs" line="189" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
