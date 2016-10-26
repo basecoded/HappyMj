@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2F6EAB48-5C83-92B9-79D6-3C9554243367}</ProjectGuid>
+    <ProjectGuid>{57FC1957-B0B0-3CDE-BBB6-343A03C9071C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -48,6 +48,7 @@
      <Compile Include="Assets\Demo.cs" />
      <Compile Include="Assets\Scripts\Base System\Communication\Channel\SoketClient.cs" />
      <Compile Include="Assets\Scripts\Base System\Communication\Codec\ProtobufDecoder.cs" />
+     <Compile Include="Assets\Scripts\Base System\Communication\Codec\ProtobufEncoder.cs" />
      <Compile Include="Assets\Scripts\Base System\Communication\CommunicationCenter.cs" />
      <Compile Include="Assets\Scripts\Base System\Communication\MessageConfig.cs" />
      <Compile Include="Assets\Scripts\ProtobufTest.cs" />
@@ -68,15 +69,15 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Communication">
- <HintPath>E:/workspace-unity/Happymj/Assets/Plugins/Communication.dll</HintPath>
+ <HintPath>E:/github/HappyMj/mj-unity/Assets/Plugins/Communication.dll</HintPath>
  </Reference>
  <Reference Include="protobuf-net">
- <HintPath>E:/workspace-unity/Happymj/Assets/Scripts/Base System/Protobuf/protobuf-net.dll</HintPath>
+ <HintPath>E:/github/HappyMj/mj-unity/Assets/Scripts/Base System/Protobuf/protobuf-net.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{0A68AFB9-8783-0852-5ACB-1356FBB53B10}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{B00D077B-97F1-14A8-17FB-4C04BF4DCC76}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

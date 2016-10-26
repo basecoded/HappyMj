@@ -52,7 +52,12 @@ namespace Communication
 		{
 			return leftRecvMsgBuf.GetBuffer();
 		}
-		
+
+        public MemoryStream getStream()
+        {
+            return leftRecvMsgBuf;
+        }
+
 		public void Flip ()
 		{
 			this.leftRecvMsgBuf.Seek (0, SeekOrigin.Begin);
@@ -147,6 +152,11 @@ namespace Communication
 	{
 		object Decode(byte[] bytes, int offset, int length);
 	}
+
+	public interface IDataEncoder
+	{
+		byte[] Encode<T> (T instance);
+	}
 	
 	/**
      *  socket Client
@@ -166,6 +176,7 @@ namespace Communication
 		private Queue<object> _msgCopy;
 		private ByteBuffer _recMsgBuf;
 		private IDataDecoder _decoder;
+		private IDataEncoder _encoder;
 
 		/**  */
 		const int DEFAULT_RECEIVE_SIZE = 64 * 1024;
@@ -184,7 +195,7 @@ namespace Communication
 		static	private	int			_ErrorCode = 0;
 		static	private	SocketError	_SocketError;
 
-		public SocketClient (String serverIp, String serverPorts, IDataDecoder decoder)
+		public SocketClient (String serverIp, String serverPorts, IDataDecoder decoder, IDataEncoder encoder)
 		{
 			_socketClient = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			// Set to no blocking
@@ -196,6 +207,7 @@ namespace Communication
 			_recMsgs = new Queue<object> ();
 			_msgCopy = new Queue<object> ();
 			_decoder = decoder;
+			_encoder = encoder;
 
 			this.InitIpAddressArry (serverIp, serverPorts);
 
@@ -352,13 +364,16 @@ namespace Communication
 		{
 			return (!IsConnected () && ConnectState < EClientConnectState.CONNECT_STATE_CAN_RECONNECT);
 		}
-		
-		/**
-         *
-         */
+
+
+        public void SendMessage<T>(T instance)
+        {
+            byte[] bytes = _encoder.Encode (instance);
+            this.SendMessage (bytes);
+        }
+
 		public void SendMessage (byte[] bytes)
 		{
-//			ClientLog.Log("send msg");
 			try {
 				if (!this.IsConnected ()) {
 					ClientLog.LogError ("server is not connected!");
@@ -528,19 +543,22 @@ namespace Communication
 
 			while (_recMsgBuf.Remaining() >= minCheckLength)
 			{
-				int bodyLen;
-				Serializer.TryReadLengthPrefix (_recMsgBuf.GetBuffer(), 0, _recMsgBuf.GetBuffer().Length, PrefixStyle.Base128, out bodyLen);
+                _recMsgBuf.SetPosition(minCheckLength - MessageConfig.BODY_SIZE_LENGTH);
 
-				_recMsgBuf.SetPosition(minCheckLength - MessageConfig.BODY_SIZE_LENGTH);
+                int fieldNumber, headLen;
+                int bodyLen = ProtoReader.ReadLengthPrefix(_recMsgBuf.getStream(), false, PrefixStyle.Base128, out fieldNumber, out headLen);
+                if (bodyLen <= 0)
+                {
+                    break;
+                }
 
-				//int bodyLen = _recMsgBuf.GetInt();
 				if (_recMsgBuf.Remaining() >= bodyLen)
 				{
 					_recMsgBuf.Flip ();
 
 					long position = _recMsgBuf.Position();
-					int dataLen = minCheckLength + bodyLen;
-					object data = _decoder.Decode(_recMsgBuf.GetBuffer(), (int)position, dataLen);
+                    int dataLen = headLen + bodyLen;
+                    object data = _decoder.Decode(_recMsgBuf.GetBuffer(), (int)position, dataLen );
 //					byte[] data = new byte[minCheckLength + bodyLen];
 //					_recMsgBuf.Get(data);
 					_recMsgs.Enqueue(data);

@@ -51,7 +51,12 @@ public class IoMsgOutAction {
             }
 
             if (null != channel) {
-                channel.writeAndFlush(builder);
+                
+                for (int i = 0; i < 5; i++) {
+                    channel.writeAndFlush(builder);
+                    
+                    LOG.info("message out: {}", message.toString());
+                }
             }
 
             break;

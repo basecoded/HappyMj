@@ -24,15 +24,14 @@ public class ProtobufTest : MonoBehaviour {
 		Debug.Log (json.ToJson());
 
 		Request request = new Request () {command = "1001", data = json.ToJson()};
+		communicationCenter.SendMessage (request);
 
-		byte[] bytes = Serialize (request);
+		byte[] bytes = Serialize<Request> (request);
 		Debug.Log (bytes.Length);
 
 		Request result = Deserialize<Request> ((object)bytes);
 		Debug.Log (result);
 
-
-		communicationCenter.SendMessage (bytes);
 	}
 	
 	// Update is called once per frame
