@@ -16,4 +16,5 @@ hs_err_pid*
 *.project
 *.log
 */target
+*/Temp
 
