@@ -3,7 +3,7 @@ package com.s4game.server.public_.card.rule.handler;
 import java.util.List;
 
 import com.s4game.server.public_.card.model.card.Card;
-import com.s4game.server.public_.card.model.card.CardBehavior;
+import com.s4game.server.public_.card.model.card.ActionType;
 import com.s4game.server.public_.card.model.group.ICardGroup;
 
 public interface CardHandler {
@@ -30,6 +30,6 @@ public interface CardHandler {
      * 
      * @return
      */
-    CardBehavior getBehavior();
+    ActionType getBehavior();
 
 }

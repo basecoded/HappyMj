@@ -9,7 +9,7 @@ import com.s4game.core.enum_.IntEnum;
 * @sine 2016年9月24日 下午8:39:40
 *
 */
-public enum CardBehavior implements IntEnum {
+public enum ActionType implements IntEnum {
 	
 	/**
 	 * 过
@@ -27,34 +27,24 @@ public enum CardBehavior implements IntEnum {
 	PENG(4, false),
 	
 	/**
-	 * 坎
+	 * 杠
 	 */
-	KAN(8, true),
-	
-	/**
-	 * 跑
-	 */
-	PAO(16, true),
-	
-	/**
-	 * 提龙
-	 */
-	LONG(32, true),
+	GANG(8, false),
 	
 	/**
 	 * 胡牌
 	 */
-	HU(64, true),
+	HU(16, false),
 	
 	;
 	
-	private static CardBehavior[] INDEXS = EnumUtils.toArray(values());
+	private static ActionType[] INDEXS = EnumUtils.toArray(values());
 	
 	private final int id;
 	
 	private final boolean auto;
 	
-	private CardBehavior(int id, boolean auto) {
+	private ActionType(int id, boolean auto) {
 		this.id = id;
 		this.auto = auto;
 	}
@@ -68,7 +58,7 @@ public enum CardBehavior implements IntEnum {
 	    return auto;
 	}
 	
-	public static CardBehavior findById(int value) {
+	public static ActionType findById(int value) {
         if (value < 0 || value >= INDEXS.length) {
             return null;
         }

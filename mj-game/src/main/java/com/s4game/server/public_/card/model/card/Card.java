@@ -75,7 +75,7 @@ public class Card {
     }
 
     public String getIdentity() {
-        return value + "-" + type;
+        return type + "-" + value;
     }
 
     public boolean isSame(Card card) {

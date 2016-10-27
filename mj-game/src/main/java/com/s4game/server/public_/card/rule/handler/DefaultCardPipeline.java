@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.s4game.server.public_.card.model.card.Card;
-import com.s4game.server.public_.card.model.card.CardBehavior;
+import com.s4game.server.public_.card.model.card.ActionType;
 import com.s4game.server.public_.card.model.group.ICardGroup;
 
 public class DefaultCardPipeline implements CardPipeline {
@@ -174,7 +174,7 @@ public class DefaultCardPipeline implements CardPipeline {
         }
 
         @Override
-        public CardBehavior getBehavior() {
+        public ActionType getBehavior() {
             return null;
         }
     }
@@ -203,7 +203,7 @@ public class DefaultCardPipeline implements CardPipeline {
         }
 
         @Override
-        public CardBehavior getBehavior() {
+        public ActionType getBehavior() {
             return null;
         }
     }

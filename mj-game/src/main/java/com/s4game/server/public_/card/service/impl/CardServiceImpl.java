@@ -18,14 +18,13 @@ import com.s4game.core.tuple.Tuple;
 import com.s4game.core.tuple.TwoTuple;
 import com.s4game.server.bus.share.constants.BusShareConstant;
 import com.s4game.server.bus.stagecontroll.RoleState;
+import com.s4game.server.public_.card.CardConstants;
 import com.s4game.server.public_.card.model.card.Card;
 import com.s4game.server.public_.card.model.card.CardState;
 import com.s4game.server.public_.card.model.card.CardType;
 import com.s4game.server.public_.card.rule.handler.CardHandler;
 import com.s4game.server.public_.card.rule.handler.ChiHandler;
 import com.s4game.server.public_.card.rule.handler.DefaultCardPipeline;
-import com.s4game.server.public_.card.rule.handler.KanHandler;
-import com.s4game.server.public_.card.rule.handler.LongHandler;
 import com.s4game.server.public_.card.rule.handler.PengHandler;
 import com.s4game.server.public_.card.service.ICardService;
 import com.s4game.server.public_.room.RoomConstants;
@@ -53,9 +52,7 @@ public class CardServiceImpl implements ICardService {
     @PostConstruct
     public void init() {
         cardPipeline = new DefaultCardPipeline();
-        cardPipeline.addLast("long", new LongHandler())
-                    .addLast("kan" , new KanHandler())
-                    .addLast("peng", new PengHandler())
+        cardPipeline.addLast("peng", new PengHandler())
                     .addLast("chi", new ChiHandler());
     }
     
@@ -146,20 +143,22 @@ public class CardServiceImpl implements ICardService {
      */
     @Override
     public List<Card> initCards(String stageId) {
-        List<Card> cards = new ArrayList<>();
+        ArrayList<Card> cards = new ArrayList<>();
 
-        for (int v : RoomConstants.CARD_VALUE) {
-            cards.add(new Card(nextCardId(stageId), v, CardType.SMALL, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.SMALL, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.SMALL, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.SMALL, CardState.BOTTOM_CARD));
-        }
-
-        for (int v : RoomConstants.CARD_VALUE) {
-            cards.add(new Card(nextCardId(stageId), v, CardType.BIG, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.BIG, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.BIG, CardState.BOTTOM_CARD));
-            cards.add(new Card(nextCardId(stageId), v, CardType.BIG, CardState.BOTTOM_CARD));
+        for (CardType type : CardType.values()) {
+            if (type.isNumeric()) {
+                for (int value : CardConstants.CARD_VALUE) {
+                    cards.add(new Card(nextCardId(stageId), value, type, CardState.BOTTOM_CARD));
+                    cards.add(new Card(nextCardId(stageId), value, type, CardState.BOTTOM_CARD));
+                    cards.add(new Card(nextCardId(stageId), value, type, CardState.BOTTOM_CARD));
+                    cards.add(new Card(nextCardId(stageId), value, type, CardState.BOTTOM_CARD));
+                }
+            } else {
+                cards.add(new Card(nextCardId(stageId), type.getId(), type, CardState.BOTTOM_CARD));
+                cards.add(new Card(nextCardId(stageId), type.getId(), type, CardState.BOTTOM_CARD));
+                cards.add(new Card(nextCardId(stageId), type.getId(), type, CardState.BOTTOM_CARD));
+                cards.add(new Card(nextCardId(stageId), type.getId(), type, CardState.BOTTOM_CARD));
+            }
         }
 
         Collections.shuffle(cards);

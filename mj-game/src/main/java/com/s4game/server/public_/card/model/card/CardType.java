@@ -11,23 +11,59 @@ import com.s4game.core.enum_.IntEnum;
  */
 public enum CardType implements IntEnum {
 
-    SMALL(1),
+    /** 条 */
+    TIAO(1, true),
     
-    BIG (2)
+    /** 万 */
+    WAN(2, true),
+    
+    /** 筒 */
+    TONG (3, true),
+    
+    /** 东 */
+    DONG(4, false),
+    
+    /** 南 */
+    NAN(5, false),
+    
+    /** 西 */
+    XI(6, false),
+    
+    /** 北 */
+    BEI(7, false),
+    
+    /** 中 */
+    ZHONG(8, false),
+    
+    /** 发 */
+    FA(9, false),
+    
+    /** 白 */
+    BAI(10, false),
+    
     
     ;
-    
     private static CardType[] INDEXS = EnumUtils.toArray(values());
     
     private final int type;
     
-    private CardType(int type) {
+    /**
+     * 数字牌
+     */
+    private final boolean numeric;
+    
+    private CardType(int type, boolean numeric) {
         this.type = type;
+        this.numeric = numeric;
     }
 
     @Override
     public int getId() {
         return type;
+    }
+    
+    public boolean isNumeric() {
+        return numeric;
     }
     
     public static CardType findById(int value) {
