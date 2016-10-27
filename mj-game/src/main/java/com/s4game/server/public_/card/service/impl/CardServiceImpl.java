@@ -3,7 +3,6 @@ package com.s4game.server.public_.card.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ import com.s4game.server.public_.card.CardConstants;
 import com.s4game.server.public_.card.model.card.Card;
 import com.s4game.server.public_.card.model.card.CardState;
 import com.s4game.server.public_.card.model.card.CardType;
-import com.s4game.server.public_.card.rule.handler.CardHandler;
 import com.s4game.server.public_.card.rule.handler.ChiHandler;
 import com.s4game.server.public_.card.rule.handler.DefaultCardPipeline;
 import com.s4game.server.public_.card.rule.handler.PengHandler;
@@ -89,37 +87,19 @@ public class CardServiceImpl implements ICardService {
         Card lastCard = initCards.remove(0);
         dealer.addHandCard(lastCard);
 
+        // 翻癩子
+        
         preproccess(stage);
     }
 
     @Override
     public void preproccess(RoomStage stage) {
-        //庄家检查 龙，坎，胡牌；其他玩家检查龙，坎
-        RoomBusinessData businessData = stage.getRoomBusinessData();
-        
-        for (RoomMemberData member : businessData.getMembers()) {
-            handler0(member);
-            
-            if (member.isDealer()) {
-                boolean hupai = hupai((ArrayList<Card>) member.getHandCard().getCards());
-                if (hupai) {
-                    LOG.info("tian hu. roleId: {}, name: {}", member.getRoleId(), member.getName());
-                }
-            }
-        }
-    }
-    
-    private void handler0(RoomMemberData member){
-        for (Iterator<Map.Entry<String, CardHandler>> iterator = cardPipeline.iterator(); iterator.hasNext();) {
-            CardHandler handler = iterator.next().getValue();
-            
-            handler.handler(member.getHandCard().getCards(), member.getGroups());
-        }
+
     }
     
     /**
      * 1. 开始游戏，随机一个
-     * 2. 一局打完，胡牌人庄 ，没人胡牌，随机一个
+     * 2. 一局打完，胡牌人庄 ，没人胡牌，下一个
      * 
      * @param businessData
      */

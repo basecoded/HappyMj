@@ -17,34 +17,24 @@ public enum CardGroupType implements IntEnum {
     HAND(1, false),
     
     /**
-     * 提龙
+     * 杠
      */
-    LONG(2, true),
-
-    /**
-     * 跑
-     */
-    PAO(3, true),
-
-    /**
-     * 坎
-     */
-    KAN(4, false),
+    GANG(2, true),
 
     /**
      * 碰
      */
-    PENG(5, true),
+    PENG(3, true),
     
     /**
      * 吃
      */
-    CHI(6, true),
+    CHI(4, true),
     
     /**
      * 弃牌
      */
-    DISCARD(7, true),
+    DISCARD(5, true),
     
     ;
 

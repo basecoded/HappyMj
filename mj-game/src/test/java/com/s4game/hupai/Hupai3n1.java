@@ -76,7 +76,7 @@ public class Hupai3n1 extends BaseHupai {
         sourceCards = new ArrayList<>();
         ArrayList<Card> initCards = initCards();
 
-        //随机获取 15张
+        //随机获取 14张
         for(int i = 0; i < 14; i++) {
             int index = MathUtils.random(0, initCards.size() - 1);
             sourceCards.add(initCards.remove(index));

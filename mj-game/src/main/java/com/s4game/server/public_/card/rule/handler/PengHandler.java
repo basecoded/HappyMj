@@ -1,10 +1,9 @@
 package com.s4game.server.public_.card.rule.handler;
 
 import java.util.List;
-import java.util.Map;
 
-import com.s4game.server.public_.card.model.card.Card;
 import com.s4game.server.public_.card.model.card.ActionType;
+import com.s4game.server.public_.card.model.card.Card;
 import com.s4game.server.public_.card.model.group.ICardGroup;
 
 public class PengHandler extends AbstractCardHandler {
@@ -17,17 +16,9 @@ public class PengHandler extends AbstractCardHandler {
     public boolean match(List<ICardGroup> groups, Card card) {
         ICardGroup handCardGroup = getHandGroup(groups);
         
-        List<Card> handCards = handCardGroup.getCards();
-        Map<String, List<Card>> map = groupBy(handCards);
+        boolean match111 = match111(handCardGroup.getCards(), card);
         
-        for (List<Card> cards : map.values()) {
-            Card orignalCard = cards.get(0);
-            if (cards.size() == 2 && orignalCard.isSame(card)) {
-                return true;
-            }
-        }
-        
-        return false;
+        return match111;
     }
 
     @Override

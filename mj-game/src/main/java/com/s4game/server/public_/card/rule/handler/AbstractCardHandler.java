@@ -54,8 +54,11 @@ public abstract class AbstractCardHandler implements CardHandler {
      * @param cardMap
      */
     boolean match123(List<Card> cards, Card curData) {
+        if (!curData.getType().isNumeric()) {
+            return match111(cards, curData);
+        }
+        
         List<Card> tmp = new ArrayList<>();
-
         int serial = 0; // 连续两次
         int value = curData.getValue();
         for (int i = value - 2; i <= value + 2; i++) {
@@ -87,36 +90,9 @@ public abstract class AbstractCardHandler implements CardHandler {
         return false;
     
     }
-
-    /**
-     * 匹配 2, 7, 10
-     * 
-     * @param cards
-     */
-    boolean match2710(List<Card> cards, Card curCard) {
-        int[] values = new int[]{2, 7 ,10};
-        List<Card> tmp = new ArrayList<>();
-        tmp.add(curCard);
-        
-        for (int v : values) {
-            Card card = findValue(cards, v, curCard.getType());
-            if (card != null) {
-                tmp.add(card);
-            }
-        }
-        
-        if (tmp.size() < values.length) {
-            return false;
-        } else {
-            for (Card c : tmp) {
-                cards.remove(c);
-            }
-            return true;
-        }
-    }
     
     /**
-     * 匹配相同牌面值(大，小)，形成一句话
+     * 匹配相同牌形成一句话
      * 
      * @param cards
      * @param curCard
@@ -131,7 +107,7 @@ public abstract class AbstractCardHandler implements CardHandler {
                 break;
             }
             
-            if (d.getValue() == curCard.getValue()) {
+            if (curCard.isSame(d)) {
                 tmp.add(d);
                 count++;
             }

@@ -16,11 +16,9 @@ public class ChiHandler extends AbstractCardHandler {
     public boolean match(List<ICardGroup> groups, Card card) {
         ICardGroup handCardGroup = getHandGroup(groups);
         
-        boolean match111 = match111(handCardGroup.getCards(), card);
         boolean match123 = match123(handCardGroup.getCards(), card);
-        boolean match2710 = match2710(handCardGroup.getCards(), card);
         
-        return match111 || match123 || match2710;
+        return match123;
     }
 
     @Override
